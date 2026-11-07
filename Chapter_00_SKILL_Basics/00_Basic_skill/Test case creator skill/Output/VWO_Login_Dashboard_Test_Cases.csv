@@ -1,0 +1,62 @@
+﻿Category,TC_ID,Priority,Test_Objective,Preconditions,Steps,Expected_Result
+Authentication & Session Management,AUTH_TC_01,P0,"Verify successful login with valid credentials","User account exists and is active; user is on the VWO login page.","1. Enter a valid email address.
+2. Enter a valid password.
+3. Click the Login button.","The user is authenticated successfully, redirected to the dashboard, and a secure session is created."
+Authentication & Session Management,AUTH_TC_02,P0,"Validate failed login for incorrect password","User account exists; user is on the login page.","1. Enter a valid email address.
+2. Enter an incorrect password.
+3. Click the Login button.","Authentication fails with a clear error message, no session is created, and the user remains on the login page."
+Authentication & Session Management,AUTH_TC_03,P1,"Verify Remember Me functionality persists session","User account exists; browser allows cookies.","1. Check Remember Me.
+2. Sign in with valid credentials.
+3. Close and reopen the browser session.","The user remains signed in according to the configured session expiry and is not required to re-enter credentials."
+Authentication & Session Management,AUTH_TC_04,P0,"Validate secure session timeout behavior","User is logged in; session timeout is enabled.","1. Log in with valid credentials.
+2. Remain inactive for longer than the configured timeout period.
+3. Try to access the dashboard.","The session expires securely, the user is redirected to login, and the session is invalidated."
+Authentication & Session Management,AUTH_TC_05,P1,"Verify enterprise SSO login flow","The organization has an SSO configuration enabled and the enterprise identity provider is available.","1. Enter the company email or use the SSO login option.
+2. Continue to the external identity provider.
+3. Authenticate successfully.","The user is redirected back to VWO and gains access to the dashboard without manual password entry."
+User Input Validation & Error Handling,VAL_TC_01,P0,"Check email format validation on invalid input","User is on the login form.","1. Enter text such as user@domain without a valid domain.
+2. Move focus away from the field or click Login.","The system highlights the email field and shows an actionable validation message indicating the email format is invalid."
+User Input Validation & Error Handling,VAL_TC_02,P0,"Validate required field behavior for empty inputs","User is on the login form.","1. Leave the email field empty.
+2. Leave the password field empty.
+3. Attempt login.","The form prevents submission and displays clear required-field errors for both inputs."
+User Input Validation & Error Handling,VAL_TC_03,P1,"Verify inline validation on blur","User is on the login form.","1. Enter a partially valid email address.
+2. Blur the email field.
+3. Observe the UI state.","Validation triggers immediately on blur and displays relevant guidance without needing a page refresh."
+User Input Validation & Error Handling,VAL_TC_04,P1,"Check password strength indicator updates","User is on the signup or password entry area.","1. Enter a weak password such as password123.
+2. Enter a medium password with some complexity.
+3. Enter a strong password with mixed case, numbers, and symbols.","The indicator updates to reflect strength progress and encourages compliance with the password policy."
+User Input Validation & Error Handling,VAL_TC_05,P1,"Verify malicious input is rejected safely","The application is running with login form validation enabled.","1. Enter input containing special characters or scripts in the username or email field.
+2. Submit the form.
+3. Inspect the server response and UI behavior.","The system rejects the input safely, shows validation feedback, and prevents script injection or malformed data from reaching backend logic."
+Password Management & Recovery,PWD_TC_01,P0,"Verify forgot password flow sends recovery email","User account exists and email delivery is configured.","1. Click Forgot Password on the login page.
+2. Enter a valid registered email address.
+3. Submit the form.","A secure password reset email is sent with a valid recovery link or token."
+Password Management & Recovery,PWD_TC_02,P0,"Validate password reset with valid token","User has received an email with a reset token.","1. Open the reset link.
+2. Enter a valid new password that meets policy requirements.
+3. Submit the new password.","The password is reset successfully and the user can log in with the new credentials."
+Password Management & Recovery,PWD_TC_03,P1,"Reject expired or invalid recovery token","User attempts to use a reset link after expiry or with a tampered token.","1. Open an expired or invalid password reset link.
+2. Attempt to reset the password.","The system denies the request with a clear error, invalidates the token, and prevents unauthorized password changes."
+Password Management & Recovery,PWD_TC_04,P0,"Enforce strong password complexity requirements","User is on the password reset or registration form.","1. Enter a password below the required strength threshold.
+2. Attempt to save the password.","The password is rejected and a clear list of requirements is displayed until the policy conditions are met."
+Password Management & Recovery,PWD_TC_05,P1,"Verify rate limiting on repeated password reset attempts","A user account exists and the system tracks reset attempts.","1. Enter an invalid email or trigger repeated reset requests in quick succession.
+2. Submit multiple requests within a short period.","The system throttles or blocks excessive attempts and shows a rate-limit message to reduce brute-force risk."
+User Experience, Accessibility & Interface Design,UX_TC_01,P1,"Verify first input auto-focus behavior","The login page loads for a new user.","1. Navigate to the login page.
+2. Observe the page immediately after load.","The first field receives focus automatically, reducing user effort and improving the login journey."
+User Experience, Accessibility & Interface Design,UX_TC_02,P1,"Validate clickable labels and keyboard navigation","The login form is visible and interactive.","1. Click the Email label instead of the input field.
+2. Use Tab, Shift+Tab, and Enter to navigate through the form.","The label focuses the corresponding field and all interactive elements are accessible via keyboard alone."
+User Experience, Accessibility & Interface Design,UX_TC_03,P1,"Check responsive layout on mobile devices","The application is viewed on a narrow mobile viewport.","1. Open the login page on a mobile-sized screen.
+2. Interact with the email, password, and login controls.","The form remains readable, touch-friendly, and usable without clipped text or overlapping elements."
+User Experience, Accessibility & Interface Design,UX_TC_04,P1,"Check light and dark mode theme support","The page contains the VWO announcement banner or theme settings.","1. Switch the interface from light to dark mode and back.
+2. Observe the form, text, and contrast levels.","The theme switch affects the UI consistently and maintains legibility without loss of functionality."
+User Experience, Accessibility & Interface Design,UX_TC_05,P1,"Validate accessibility features for screen readers and high contrast","The login form is used by a keyboard-and-screen-reader user.","1. Inspect ARIA labels and focus order.
+2. Enable high contrast mode or inspect contrast levels.","The form provides accessible labels, logical navigation, and sufficient contrast for visually impaired users."
+Security, Performance & Compliance,SEC_TC_01,P0,"Verify HTTPS and encrypted data transmission","The login page is accessed over network connections.","1. Open the login page and inspect network traffic.
+2. Submit login credentials.","All communications occur over HTTPS with secure transport, and no sensitive credentials are exposed in plain text."
+Security, Performance & Compliance,SEC_TC_02,P0,"Validate brute-force protection and rate limiting","The authentication service is enabled with security controls.","1. Attempt repeated failed logins for the same user in quick succession.
+2. Observe the system response after several invalid attempts.","The system throttles requests, blocks excessive attempts, and triggers protective error handling to prevent brute-force attacks."
+Security, Performance & Compliance,SEC_TC_03,P0,"Check page load performance under standard network conditions","The production-like login page is loaded on a standard connection.","1. Open the login page and measure page load time.
+2. Capture initial rendering and interaction readiness.","The login page loads within the target time threshold and assets are optimized for a fast user experience."
+Security, Performance & Compliance,SEC_TC_04,P0,"Verify GDPR and audit compliance controls","The application supports enterprise/security compliance requirements.","1. Review data handling in login, reset, and session flows.
+2. Inspect configuration for user data retention and audit logging.","The system follows GDPR-conscious handling, logs required events, and supports enterprise audit requirements without compromising security."
+Security, Performance & Compliance,SEC_TC_05,P1,"Ensure analytics and support integration after login","The system is configured with analytics and support integrations.","1. Log in successfully.
+2. Trigger a login attempt, a failure event, and a support fallback flow.","The system records successful and failed login events for optimization and support without disrupting the user workflow."

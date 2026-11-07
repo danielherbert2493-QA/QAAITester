@@ -1,0 +1,21 @@
+Record Type,ID,Description,Test Case IDs,Coverage,Question / Notes
+Scope,SRC,SCRUM-5: Add express payment option on the Cart page,,,"Source: Jira SCRUM-5; no approved test plan or attachment was present. All cases remain drafts until reviewed."
+Acceptance Criterion,AC-1,Show express payment buttons when cart has at least one eligible item,TC-SCRUM-5-001,Covered,"Eligibility definition/test fixture remains an open gap (GAP-1)."
+Acceptance Criterion,AC-2,Hide express payment buttons when cart is empty,TC-SCRUM-5-002,Covered,
+Acceptance Criterion,AC-3,Open provider sheet with the correct order total including items shipping tax discounts,TC-SCRUM-5-003,Covered,"Ticket does not specify tax/discount calculation rules; compare with the authoritative cart total."
+Acceptance Criterion,AC-4,Successful authorization places order and opens Order Confirmation,TC-SCRUM-5-004,Covered,
+Acceptance Criterion,AC-5,Cancelling provider sheet returns to unchanged Cart,TC-SCRUM-5-005,Covered,
+Acceptance Criterion,AC-6,Failed or declined payment shows an error and creates no order,TC-SCRUM-5-006,Covered,"Exact error content and recovery behavior are unspecified (GAP-2)."
+Acceptance Criterion,AC-7,Standard Checkout remains available and works as before,TC-SCRUM-5-007,Partial,"Existing approved standard-checkout baseline is needed to verify 'as before' (GAP-7)."
+Acceptance Criterion,AC-8,Cart is cleared after successful express payment,TC-SCRUM-5-008,Covered,
+Acceptance Criterion,AC-9,Double-clicking express button does not create duplicate orders,TC-SCRUM-5-011,Covered,
+Acceptance Criterion,AC-10,Express buttons display correctly on desktop and mobile,TC-SCRUM-5-009; TC-SCRUM-5-010,Blocked,"Desktop/mobile browsers, viewports, and display acceptance criteria need clarification (GAP-5)."
+Gap,GAP-1,Definition of an eligible item and expected behavior when no item is eligible,TC-SCRUM-5-001; TC-SCRUM-5-012,Blocked,"Question: What item/payment eligibility rules apply, and should buttons be absent if no cart item qualifies?"
+Gap,GAP-2,Payment failure/decline error content and recovery behavior,TC-SCRUM-5-006,Partial,"Question: What message should be shown and what retry/recovery action is expected?"
+Gap,GAP-3,Test data, provider configuration, sandbox and environment setup,TC-SCRUM-5-001; TC-SCRUM-5-003; TC-SCRUM-5-004; TC-SCRUM-5-005; TC-SCRUM-5-006; TC-SCRUM-5-008; TC-SCRUM-5-009; TC-SCRUM-5-010; TC-SCRUM-5-011,Partial,"Question: Which environments, Apple Pay/provider sandbox, eligible products, and payment success/failure fixtures are available?"
+Gap,GAP-4,Roles, permissions, authorization and security expectations,,Hole,"Question: Which shopper/account types may use express payment, and what security/authorization checks are required?"
+Gap,GAP-5,Supported desktop/mobile device/browser matrix and visual acceptance criteria,TC-SCRUM-5-009; TC-SCRUM-5-010,Blocked,"Question: Which browsers/devices/viewports are in scope, and what does 'display correctly' mean?"
+Gap,GAP-6,Performance accessibility localization audit/observability and other non-functional requirements,,Hole,"Question: Are there required performance targets, accessibility standards, supported locales, or audit/logging behaviors?"
+Gap,GAP-7,Existing standard Checkout regression baseline,TC-SCRUM-5-007,Partial,"Question: Which approved existing checkout test and expected results define 'works as before'?"
+Summary,SUM-1,Draft test case totals,,,"12 cases: 9 Draft; 3 Blocked - needs clarification. Priority totals: P0=1; P1=10; P2=1."
+Human Review Gate,REVIEW,Human review required before approval,,,"Confirm or edit the cases and answer the open questions above. No case is approved or final."
