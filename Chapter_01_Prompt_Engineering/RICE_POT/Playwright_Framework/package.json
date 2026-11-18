@@ -1,0 +1,30 @@
+{
+  "name": "playwright-ecommerce-framework",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:headed": "playwright test --headed",
+    "test:list": "playwright test --list",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "allure:generate": "allure generate allure-results --clean -o allure-report",
+    "allure:open": "allure open allure-report"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.65.0",
+    "@types/node": "26.6.6",
+    "allure-commandline": "2.46.1",
+    "allure-playwright": "3.14.0",
+    "dotenv": "18.0.10",
+    "eslint": "10.14.0",
+    "eslint-plugin-playwright": "2.12.2",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.2"
+  }
+}
