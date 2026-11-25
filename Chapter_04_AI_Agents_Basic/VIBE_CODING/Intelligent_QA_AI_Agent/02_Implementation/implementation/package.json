@@ -1,0 +1,22 @@
+{
+  "name": "intelligent-test-planning-agent",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/backend/server.js",
+    "build": "vite build",
+    "start": "node src/backend/server.js",
+    "test": "node --test src/backend/test/*.test.js"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.18",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "marked": "^18.2.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "vite": "^6.4.1"
+  }
+}
