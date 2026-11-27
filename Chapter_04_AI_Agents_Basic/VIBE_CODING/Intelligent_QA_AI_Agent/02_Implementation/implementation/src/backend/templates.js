@@ -3,8 +3,27 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { AppError } from './errors.js';
 
-const projectDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
-const templateDirectory = path.join(projectDirectory, '01_Plan');
+const backendDirectory = path.dirname(fileURLToPath(import.meta.url));
+// 01_Plan/ is the source of truth. implementation/templates/ is a synced copy
+// (npm run sync-templates) bundled with the Vercel function, where 01_Plan/ is
+// outside the deployed app. Prefer 01_Plan/ when it exists.
+const templateDirectories = [
+  path.resolve(backendDirectory, '../../../../01_Plan'),
+  path.resolve(backendDirectory, '../../templates'),
+];
+
+async function readTemplateFile(file) {
+  for (const directory of templateDirectories) {
+    try {
+      return await fs.readFile(path.join(directory, file), 'utf8');
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
+  const notFound = new Error('Template not found.');
+  notFound.code = 'ENOENT';
+  throw notFound;
+}
 
 export const artifactDefinitions = [
   { id: 'testPlan', title: 'Test Plan', file: '00_Test_Plan_Template.md' },
@@ -14,7 +33,7 @@ export const artifactDefinitions = [
 
 async function loadTemplate(definition) {
   try {
-    const content = await fs.readFile(path.join(templateDirectory, definition.file), 'utf8');
+    const content = await readTemplateFile(definition.file);
     if (!content.trim()) {
       return { ...definition, available: false, error: 'Template is empty.' };
     }

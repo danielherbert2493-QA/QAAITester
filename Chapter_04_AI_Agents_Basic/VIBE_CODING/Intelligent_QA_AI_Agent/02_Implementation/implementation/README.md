@@ -22,6 +22,16 @@ Open <http://127.0.0.1:4173>. Open **Settings** to select an available Groq/Olla
 
 For a production build, run `npm run build` followed by `npm start`.
 
+## Deploy to Vercel
+
+The frontend is served as static files from `dist/`. The backend runs as one serverless function, `api/index.js`, which reuses the Express app in `src/backend/app.js`. `vercel.json` rewrites every `/api/*` request to that function.
+
+1. In the Vercel project, set **Root Directory** to `Chapter_04_AI_Agents_Basic/VIBE_CODING/Intelligent_QA_AI_Agent/02_Implementation/implementation`. Leave Framework Preset as **Other**; build settings come from `vercel.json`.
+2. Under **Settings → Environment Variables**, add `JIRA_BASE_URL`, `JIRA_EMAIL`, `JIRA_TOKEN`, and `GROQ_API_KEY`. `cred.env` is not deployed.
+3. Redeploy.
+
+Templates are bundled from `templates/`, a copy of `01_Plan/`. `npm run build` re-syncs the copy automatically. Run `npm run sync-templates` and commit after you edit a template. Ollama is not available on Vercel; use a Groq model there. Generation is limited to 60 seconds per request (`maxDuration` in `vercel.json`).
+
 ## Verification and limitations
 
 Run `npm test` for mocked backend checks, including selected-template loading, artifact generation, oversized request handling, and Groq rate-limit handling. Jira retrieval and live LLM requests are exercised only when you use the connection-test buttons or submit a Jira issue; they are not called by the automated tests. Outputs are rendered as readable Markdown. Jira content is treated as source data, and template fields or sections unsupported by the Jira issue are omitted rather than filled with placeholders. To help avoid provider request-size limits, long Jira descriptions and acceptance criteria are excerpted before generation; the app displays a warning when this happens. A provider 413 error includes guidance to reduce the issue content or select a model with a larger context window. Generation is not automatically retried. If Groq rate-limits a run, wait for the provider's reset window before submitting again, or use a local Ollama model if available.

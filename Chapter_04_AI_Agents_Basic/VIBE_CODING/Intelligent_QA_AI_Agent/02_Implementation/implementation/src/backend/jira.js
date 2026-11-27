@@ -77,7 +77,7 @@ export function normalizeJiraIssue(issue, baseUrl) {
 }
 
 function jiraError(status) {
-  if (status === 401) return new AppError(502, 'Jira authentication failed. Check the email and API token in cred.env.');
+  if (status === 401) return new AppError(502, 'Jira authentication failed. Check the email and API token in cred.env (local) or the Vercel environment variables.');
   if (status === 403) return new AppError(403, 'The configured Jira account does not have permission to read this issue.');
   if (status === 404) return new AppError(404, 'Jira issue was not found or is not visible to the configured account.');
   if (status === 429) return new AppError(503, 'Jira is rate-limiting requests. Try again shortly.');
@@ -93,7 +93,7 @@ function authHeaders(config) {
 
 function assertJiraConfig(config) {
   if (!config.baseUrl || !config.email || !config.token) {
-    throw new AppError(503, 'Jira is not fully configured. Check JIRA_BASE_URL, JIRA_EMAIL, and JIRA_TOKEN in cred.env.');
+    throw new AppError(503, 'Jira is not fully configured. Check JIRA_BASE_URL, JIRA_EMAIL, and JIRA_TOKEN in cred.env (local) or the Vercel environment variables.');
   }
 }
 

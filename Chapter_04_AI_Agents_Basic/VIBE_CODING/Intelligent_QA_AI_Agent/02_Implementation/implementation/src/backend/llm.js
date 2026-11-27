@@ -11,7 +11,7 @@ function providerUrl(provider, endpoint) {
 
 function checkProviderConfig(provider, config) {
   if (provider === 'groq' && !config.groqApiKey) {
-    throw new AppError(503, 'Groq is not configured. Add GROQ_API_KEY to cred.env.');
+    throw new AppError(503, 'Groq is not configured. Add GROQ_API_KEY to cred.env (local) or the Vercel environment variables.');
   }
 }
 
@@ -34,7 +34,7 @@ async function providerFetch(url, options, provider, fetchImpl) {
     return response;
   } catch {
     const message = provider === 'ollama'
-      ? 'Could not reach Ollama at 127.0.0.1:11434. Start the local service and try again.'
+      ? (process.env.VERCEL ? 'Ollama runs only on a local machine and is not available on the Vercel deployment. Select a Groq model.' : 'Could not reach Ollama at 127.0.0.1:11434. Start the local service and try again.')
       : 'Could not reach Groq. Check the network connection and try again.';
     throw new AppError(502, message);
   }

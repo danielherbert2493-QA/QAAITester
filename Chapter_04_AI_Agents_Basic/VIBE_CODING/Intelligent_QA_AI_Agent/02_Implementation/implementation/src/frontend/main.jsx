@@ -18,7 +18,16 @@ async function request(path, options = {}) {
       ...options.headers,
     },
   });
-  const result = await response.json();
+  const text = await response.text();
+  let result = null;
+  try {
+    result = text ? JSON.parse(text) : {};
+  } catch {
+    // Non-JSON reply (e.g. a hosting 404/timeout page): report it readably.
+    if (response.status === 404) throw new Error('The backend API was not found. Check that the API is deployed with the frontend.');
+    if (response.status === 504) throw new Error('The server timed out while generating. Try again or choose a faster model.');
+    throw new Error(`The server returned an unexpected response (HTTP ${response.status}).`);
+  }
   if (!response.ok) throw new Error(result.error || 'The request could not be completed.');
   return result;
 }

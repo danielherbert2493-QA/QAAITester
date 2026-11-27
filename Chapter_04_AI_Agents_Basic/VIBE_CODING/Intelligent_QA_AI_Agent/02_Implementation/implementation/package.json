@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "node src/backend/server.js",
-    "build": "vite build",
+    "sync-templates": "node scripts/sync-templates.js",
+    "build": "node scripts/sync-templates.js && vite build",
     "start": "node src/backend/server.js",
     "test": "node --test src/backend/test/*.test.js"
   },
